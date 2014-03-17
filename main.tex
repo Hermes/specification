@@ -40,7 +40,7 @@ The octet order of all fields is network byte order, i.e., big-endian.
 We define the \textit{network} to be the peer-to-peer connection between clients. Data to be inserted into the network must first undergo a multistage encoding process to ensure its security and integrity. We define the client-side of the implementation to be anything that must first be executed before contacting peers on the rest of the network. These stages are in order of optimal execution. Out of order execution may cause unknown or unusable results. We define the \textit{source data} to be the data inputted by the user in its original state to be sent to the network.
 
 \subsection{Hash Function}
-Over the course of this document, a cryptographic hash function, $H($message$) \rightarrow$ digest, will be required for implementation of certain components of this system. While no specific function is required, it MUST be infeasible to generate a message that has a given hash, to modify a message without changing the hash, and to find two different messages with the same hash.
+Over the course of this document, a cryptographic hash function, $H($message$) \rightarrow$ digest, will be required for implementation of certain components of this system. While no specific function is required, it MUST be infeasible to generate a message that has a given hash, to modify a message without changing the hash, must be a consisten hash function, and to find two different messages with the same hash.
 
 \subsection{Client IDs}
 Each client, or \textit{node} on the network must have a unique identifier in order to distinguish itself, and assert ownership over its data being stored on other nodes. Upon creation of a new node, it must generate both a private and public key-pair using a unique seed as follows,
@@ -53,7 +53,7 @@ $K_{public} = H(K_{private})$
 
 
 \subsection{Data Compression}
-Compression of source data is RECOMMENDED as it aims to reduce the size of the data. While this may seem optimal to reduce network and storage loads, this also adds additional load on the client's CPU. The recommended compression algorithm is the Lempel-Ziv-Markov Chain Algorithm (LZMA), an advanced version of LZ77 [RFC1951].
+Compression of source data is RECOMMENDED as it aims to reduce the size of the data. While this may seem optimal to reduce network and storage loads, this also adds additional load on the client's CPU. The recommended compression algorithm is the Lempel-Ziv-Markov Chain Algorithm (LZMA), an advanced version of LZ77 [RFC1951]. The hermes network only source of storage is that which is contributed by the individual nodes, and each node is allow to consume as much storage in the network as they contribute. If each node used all their available storage, then all the networks resources would be consumed. This wouldnt make the the regenerative block functionality possible if nodes were to leave the network.
 
 \subsection{Data Encryption} % Read RFC3602 section 2.1
 Encryption is Advanced Encryption Standard with Cipher-Block Chaining (AES-CBC). This mode of AES works such that,
@@ -121,12 +121,12 @@ Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor 
 %\bibitem{IEEEhowto:kopka}
 %H.~Kopka and P.~W. Daly, \emph{A Guide to \LaTeX}, 3rd~ed.\hskip 1em plus
 %  0.5em minus 0.4em\relax Harlow, England: Addison-Wesley, 1999.
-
+ 
 \bibitem{}
 I. Stoica, R. Morris, D. Karger, M. F. Kaashoek, H. Balakrishnan, \emph{Chord: A Scalable Peer-to-peer Lookup Service for Internet Applications}, Proceedings of the 2001 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communications, (San Diego, California), August 2001
 
 \bibitem{}
-A. G. Dimakis , P. G. Godfrey , M. J. Wainwright and K. Ramchandran  \emph{Network coding for distributed storage systems},  IEEE INFOCOM,  2007
+A. G. Dimakis , P. G. Godfrey , M. J. Wainwright and K. Ramchandran  \emph{Network coding for distributed storage systems},  IEEE INFOCOM,  2007 
 
 %http://www.bms.bc.ca/resources/library/pdf/GuidelinesScientificPapers.pdf
 %http://tools.ietf.org/html/rfc6330
